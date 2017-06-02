@@ -30,11 +30,6 @@ func average(bitmaps []uint16, filter uint16) float64 {
 
 	s := sum(bitmaps, filter)
 
-	fmt.Println("===============\nAVG\n======================")
-	fmt.Println("s:", s)
-	fmt.Println("count filter:", popcount(uint64(Bf)))
-	fmt.Println("===============\nAVG\n======================")
-
 	return float64(s) / float64(popcount(uint64(Bf)))
 }
 
