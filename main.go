@@ -23,15 +23,27 @@ func popcount(x uint64) int {
 	return int((x * h01) >> 56)    //returns left 8 bits of x + (x<<8) + (x<<16) + (x<<24) + ...
 }
 
+func average(bitmaps []uint16, filter uint16) float64 {
+
+	Bnn := bitmaps[0] // not-null bitmap
+	Bf := filter & Bnn
+
+	s := sum(bitmaps, filter)
+
+	fmt.Println("===============\nAVG\n======================")
+	fmt.Println("s:", s)
+	fmt.Println("count filter:", popcount(uint64(Bf)))
+	fmt.Println("===============\nAVG\n======================")
+
+	return float64(s) / float64(popcount(uint64(Bf)))
+}
+
 func sum(bitmaps []uint16, filter uint16) uint64 {
 	components := uint(16)
 
 	Bnn := bitmaps[0] // not-null bitmap
 
-	Bf := filter
-	//Zi := Z0 // Zi is either all 0's or all 1's
-
-	Bf = Bf & Bnn
+	Bf := filter & Bnn
 
 	CNT := popcount(uint64(Bf))
 	SUM := uint64(0)
@@ -183,5 +195,7 @@ func main() {
 	fmt.Println("EQ 41:", compare(b, "EQ", uint16(41), filter))
 
 	fmt.Println("SUM:", sum(b, filter))
+
+	fmt.Println("AVG:", average(b, filter))
 
 }
