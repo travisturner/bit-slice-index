@@ -193,4 +193,8 @@ func main() {
 
 	fmt.Println("AVG:", average(b, filter))
 
+	// find the average of a range:
+	bm := compare(b, "GTE", uint16(870), filter)
+	fmt.Println("AVG of Range:", average(b, bm))
+
 }
